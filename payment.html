@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #5900ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .payment-container {
+            background-color: #fff;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+            position: relative;
+        }
+
+        .user-details {
+            margin: 20px 0;
+        }
+
+        .qr-code {
+            margin: 20px 0;
+            display: none; /* Hide the QR code by default */
+            max-width: 200px; /* Reduce the size of the QR code */
+            margin: 0 auto; /* Center align the QR code */
+        }
+
+        .upi-id {
+            margin: 20px 0;
+            display: none; /* Hide the UPI ID by default */
+        }
+
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: rgb(7, 7, 7);
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(10, 10, 10, 0.8);
+        }
+
+        .payment-animation {
+            display: none; /* Hide the payment animation by default */
+            font-size: 24px;
+            color: green;
+            animation: bounce 1s ease infinite; /* Add a bounce animation */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="payment-container">
+        <h1>Payment Details</h1>
+
+        <!-- Display the user's email (replace 'userEmail' with the actual user's email) -->
+        <div class="user-details">
+            <h2>User Email:</h2>
+            <p id="userEmail">user@example.com</p>
+        </div>
+
+        <!-- Display the QR code and UPI ID options -->
+        <label for="qrOption">QR Code</label>
+        <input type="radio" id="qrOption" name="paymentOption" onclick="showQRCode()">
+        
+        <label for="upiOption">UPI ID</label>
+        <input type="radio" id="upiOption" name="paymentOption" onclick="showUPIID()">
+
+        <!-- QR Code -->
+        <div class="qr-code" id="qrCode">
+            <h2>QR Code:</h2>
+            <!-- Replace 'your_qr_code.png' with the actual QR code image URL -->
+            <img src="your_qr_code.png" alt="QR Code">
+        </div>
+
+        <!-- UPI ID -->
+        <div class="upi-id" id="upiID">
+            <h2>UPI ID:</h2>
+            <!-- Replace 'your_upi_id' with the actual UPI ID -->
+            <p>divyansh-81@paytm</p>
+        </div>
+
+        <!-- Payment Done Animation -->
+        <div class="payment-animation" id="paymentAnimation">
+            Payment Done &#10004;
+        </div>
+
+        <!-- Message at the bottom of the page -->
+        <div class="message">
+            <p><u>WHEN YOU'VE CHOSEN YOUR PAYMENT METHOD, CLOSE THE TAB AND WAIT FOR 5 MINUTES!</u></p>
+        </div>
+
+        <!-- Add the button to your HTML -->
+        <button onclick="completePayment()">Complete Payment</button>
+    </div>
+    
+
+    <script>
+        const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const email = urlParams.get('email');
+
+    // Display the user's email
+    document.getElementById("userEmail").textContent = email;
+
+    // Function to show the QR code and hide the UPI ID
+    function showQRCode() {
+        document.getElementById("qrCode").style.display = "block";
+        document.getElementById("upiID").style.display = "none";
+        hidePaymentAnimation();
+    }
+
+    // Function to show the UPI ID and hide the QR code
+    function showUPIID() {
+        document.getElementById("upiID").style.display = "block";
+        document.getElementById("qrCode").style.display = "none";
+        hidePaymentAnimation();
+    }
+
+    // Function to show the payment animation
+    function showPaymentAnimation() {
+        document.getElementById("paymentAnimation").style.display = "block";
+    }
+
+    // Function to hide the payment animation
+    function hidePaymentAnimation() {
+        document.getElementById("paymentAnimation").style.display = "none";
+    }
+
+    // Function to simulate completing the payment (you can replace this with actual payment logic)
+    function completePayment() {
+        showPaymentAnimation(); // Show the payment animation when the button is clicked
+        setTimeout(() => {
+            alert("Payment completed successfully!");
+            // Navigate back to the previous page (assuming it's possible to go back)
+            window.history.back();
+        }, 1000); // Simulate a delay before showing the success message (1 second in this case)
+    }
+    // server.js
+const express = require('express');
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Mock payment processing
+app.post('/process-payment', (req, res) => {
+  const { amount, userId } = req.body;
+
+  // Process the payment here (you would integrate with a payment gateway)
+  // Once the payment is successful, you can store the payment history in your database
+
+  // For now, let's log the payment details
+  console.log(`Payment of $${amount} received from user ID ${userId}`);
+
+  res.json({ message: 'Payment successful' });
+});
+
+// Send email to your address with user details and payment history
+app.post('/send-email', (req, res) => {
+  const { email, userDetails, paymentHistory } = req.body;
+
+  // Create a Nodemailer transporter
+  const transporter = nodemailer.createTransport({
+    service: 'Gmail', // Use your email service provider
+    auth: {
+      user: 'your_email@gmail.com',
+      pass: 'your_password',
+    },
+  });
+
+  // Define email content
+  const mailOptions = {
+    from: 'your_email@gmail.com',
+    to: 'your_email@gmail.com', // Your email address
+    subject: 'Payment and User Details',
+    text: `
+      User Details:
+      ${JSON.stringify(userDetails, null, 2)}
+      
+      Payment History:
+      ${JSON.stringify(paymentHistory, null, 2)}
+    `,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Email sending failed' });
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.json({ message: 'Email sent successfully' });
+    }
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+    </script>
+</body>
+</html>

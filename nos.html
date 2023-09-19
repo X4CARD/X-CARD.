@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOS Plans | X-CARD</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(#D5A3FF 0%, #77A5F8 100%);
+    }
+    .wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center vertically */
+      justify-content: center;
+      width: 400px;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+    }
+    .wrapper header{
+      height: 55px;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      position: relative;
+      margin-bottom: 20px; /* Add margin to separate the header from the content */
+    }
+    header label{
+      height: 100%;
+      z-index: 2;
+      width: calc(100% / 3); /* Divide the width evenly among the labels */
+      display: flex;
+      cursor: pointer;
+      font-size: 18px;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.3s ease;
+    }
+    #tab-1:checked ~ header .tab-1,
+    #tab-2:checked ~ header .tab-2,
+    #tab-3:checked ~ header .tab-3{
+      color: #fff;
+    }
+    header .slider{
+      position: absolute;
+      height: 85%;
+      border-radius: inherit;
+      background: linear-gradient(145deg, #D5A3FF 0%, #77A5F8 100%);
+      transition: all 0.3s ease;
+    }
+    #tab-1:checked ~ header .slider{
+      left: 0%;
+      width: calc(100% / 3); /* Update width to match label width */
+      transform: translateX(0%);
+    }
+    #tab-2:checked ~ header .slider{
+      left: 33.333%; /* Update position to match label width */
+      width: calc(100% / 3); /* Update width to match label width */
+      transform: translateX(0%);
+    }
+    #tab-3:checked ~ header .slider{
+      left: 66.666%; /* Update position to match label width */
+      width: calc(100% / 3); /* Update width to match label width */
+      transform: translateX(0%);
+    }
+    .wrapper input[type="radio"]{
+      display: none;
+    }
+    .card-area{
+      overflow: hidden;
+      width: 100%; /* Make sure the card area spans the full width */
+    }
+    .card-area .cards{
+      display: flex;
+      width: 300%; /* Extend the width to accommodate all cards */
+    }
+    .cards .row{
+      width: 33.333%; /* Each card takes 33.333% of the card area width */
+    }
+    .cards .row-1{
+      transition: all 0.3s ease;
+    }
+    #tab-1:checked ~ .card-area .cards .row-1{
+       margin-left: 0%;
+    }
+    #tab-2:checked ~ .card-area .cards .row-1{
+      margin-left: -33.333%; /* Update margin to match card width */
+    }
+    #tab-3:checked ~ .card-area .cards .row-1{
+       margin-left: -66.666%; /* Update margin to match card width */
+    }
+    .row .price-details{
+      margin: 20px 0;
+      text-align: center;
+      padding-bottom: 25px;
+      border-bottom: 1px solid #e6e6e6;
+    }
+    .price-details .price{
+      font-size: 65px;
+      font-weight: 600;
+      position: relative;
+      font-family: 'Noto Sans', sans-serif;
+    }
+    .price-details .price::before,
+    .price-details .price::after{
+      position: absolute;
+      font-weight: 400;
+      font-family: "Poppins", sans-serif;
+    }
+    .price-details .price::before{
+      content: "$";
+      left: -13px;
+      top: 17px;
+      font-size: 20px;
+    }
+    .price-details .price::after{
+      content: "/mon";
+      right: -33px;
+      bottom: 17px;
+      font-size: 13px;
+    }
+    .price-details p{
+      font-size: 18px;
+      margin-top: 5px;
+    }
+    .row .features li{
+      display: flex;
+      font-size: 15px;
+      list-style: none;
+      margin-bottom: 10px;
+      align-items: center;
+    }
+    .features li i{
+      background: linear-gradient(#D5A3FF 0%, #77A5F8 100%);
+      background-clip: text;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+    }
+    .features li span{
+      margin-left: 5px;
+    }
+    .wrapper button{
+      width: 100%;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      height: 50px;
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+      background: linear-gradient(145deg, #D5A3FF 0%, #77A5F8 100%);
+      transition: transform 0.3s ease;
+    }
+    .wrapper button:hover{
+      transform: scale(0.98);
+    }
+
+    /* Add this CSS to style the rocket GIF */
+    .rocket-gif {
+      max-width: 47%;
+      height: auto;
+      display: block;
+      margin: 20px auto; /* Adjust the margin to position the GIF as desired */
+    }
+    .animation {
+      width: 25%;
+      position: relative;
+    }
+
+    .animation-gif {
+      max-width: 50%;
+      height: auto;
+      display: block;
+    }
+
+    /* Add this CSS to style the white metallic text */
+    .content {
+      width: 53%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .white-metallic-text {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.8);
+    }
+    .card-area {
+  overflow: hidden;
+  align-items: center;
+      justify-content: center;
+  width: 100%; /* Change this value to adjust the width of the card area */
+}
+
+  </style>
+</head>
+<body>
+  <div class="animation">
+    <img src="animation.gif" alt="Animation" class="animation-gif">
+  </div>
+  
+  <div class="wrapper">
+    <input type="radio" name="slider" id="tab-1">
+    <input type="radio" name="slider" id="tab-2" checked>
+    <input type="radio" name="slider" id="tab-3">
+    <header>
+      <label for="tab-1" class="tab-1">Basic</label>
+      <label for="tab-2" class="tab-2">Standard</label>
+      <label for="tab-3" class="tab-3">Team</label>
+      <div class="slider"></div>
+    </header>
+    <!-- Add the rocket nitro GIF here -->
+    <img src="rocket.gif" alt="Rocket Nitro" class="rocket-gif">
+    
+    <div class="card-area">
+      <div class="cards">
+        <div class="row row-1">
+          <div class="price-details">
+            <span class="price">$9</span>
+            <p>NOS Basic Plan</p>
+          </div>
+          <ul class="features">
+            <li><i class="fas fa-check"></i><span>50 MB Premium Uploads</span></li>
+            <li><i class="fas fa-check"></i><span>FREE 50+ Installation Scripts</span></li>
+            <li><i class="fas fa-check"></i><span>Custom emoji everywhere</span></li>
+            <li><i class="fas fa-check"></i><span>Xstream NOS badge in your profile</span></li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="price-details">
+            <span class="price">$19</span>
+            <p>NOS Standard Plan</p>
+          </div>
+          <ul class="features">
+            <li><i class="fas fa-check"></i><span>1 GB Premium Uploads</span></li>
+            <li><i class="fas fa-check"></i><span>FREE 200+ Installation Scripts</span></li>
+            <li><i class="fas fa-check"></i><span>Custom emoji everywhere</span></li>
+            <li><i class="fas fa-check"></i><span>HD video stream in group</span></li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="price-details">
+            <span class="price">$29</span>
+            <p>NOS Team Plan</p>
+          </div>
+          <ul class="features">
+            <li><i class="fas fa-check"></i><span>2 GB Premium Uploads</span></li>
+            <li><i class="fas fa-check"></i><span>FREE 100+ Installation Scripts</span></li>
+            <li><i class="fas fa-check"></i><span>Make your own bot</span></li>
+            <li><i class="fas fa-check"></i><span>Custom profile and more</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <form id="userDetailsForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <br>
+      <label for="uniqueId">Unique ID:</label>
+      <input type="text" id="uniqueId" name="uniqueId" required>
+      <button type="button" onclick="redirectToPayment()">Choose plan</button>
+  </form>
+  </div>
+  </div>
+  <img src="gg.gif" alt="Your Second GIF" class="your-second-gif">
+  <div class="content">
+    <h1 class="white-metallic-text"><u>UNLEASH YOUR POWER</u></h1>
+    <h1 class="white-metallic-text"><u>IN THE FORM OF NOS</u></h1>
+    <h1 class="white-metallic-text"><u>UPGRADE YOURSELF!</u></h1>
+  </div>
+  <script>
+     function redirectToPayment() {
+            // Get the user's entered email
+            var email = document.getElementById("email").value;
+
+            // Redirect to the payment page with the email as a query parameter
+            window.location.href = "payment.html?email=" + encodeURIComponent(email);
+        }
+        
+  </script>
+</body>
+</html>
