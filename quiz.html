@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatting Quiz</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFA500; /* Orange background */
+            color: #ffffff; /* White text */
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Style the quiz container */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        /* Style quiz questions and options */
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .option {
+            font-size: 18px;
+            margin: 5px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #FFA500; /* Orange background for options */
+            color: #ffffff; /* White text for options */
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        /* Style the result message */
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Chatting Quiz</h1>
+        <p class="question">1. What does "BRB" stand for in online chat language?</p>
+        <div class="options">
+            <button class="option">A. Be Right Back</button>
+            <button class="option">B. Big Red Button</button>
+            <button class="option">C. Bring Real Bacon</button>
+        </div>
+        <p class="result"></p>
+        <button id="next-button">Next</button>
+    </div>
+
+    <script>
+        const options = document.querySelectorAll('.option');
+        const resultMessage = document.querySelector('.result');
+        const nextButton = document.getElementById('next-button');
+        const questions = [
+            {
+                question: "1. What does 'BRB' stand for in online chat language?",
+                options: ["A. Be Right Back", "B. Big Red Button", "C. Bring Real Bacon"],
+                answer: "A. Be Right Back"
+            },
+            // Add more questions here...
+        ];
+        let currentQuestion = 0;
+
+        function displayQuestion() {
+            if (currentQuestion < questions.length) {
+                const current = questions[currentQuestion];
+                document.querySelector('.question').textContent = current.question;
+                for (let i = 0; i < options.length; i++) {
+                    options[i].textContent = current.options[i];
+                }
+            } else {
+                // No more questions, show the final message
+                document.querySelector('.question').textContent = "Quiz Complete!";
+                for (let i = 0; i < options.length; i++) {
+                    options[i].style.display = "none";
+                }
+                nextButton.style.display = "none";
+            }
+        }
+
+        function checkAnswer(selectedOption) {
+            if (selectedOption === questions[currentQuestion].answer) {
+                resultMessage.textContent = "Correct!";
+            } else {
+                resultMessage.textContent = "Incorrect. The correct answer is: " + questions[currentQuestion].answer;
+            }
+        }
+
+        displayQuestion();
+
+        options.forEach((option) => {
+            option.addEventListener('click', () => {
+                checkAnswer(option.textContent);
+            });
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentQuestion++;
+            resultMessage.textContent = "";
+            displayQuestion();
+        });
+    </script>
+</body>
+</html>

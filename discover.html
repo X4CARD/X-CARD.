@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Discover container styles */
+        .discover-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        /* Feature sections styles */
+        .feature-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .feature-image {
+            flex: 1;
+            max-width: 300px;
+            height: auto; /* Ensure the image maintains its aspect ratio */
+        }
+
+        .feature-description {
+            flex: 1;
+            text-align: left;
+            padding: 20px;
+        }
+
+        .feature-description h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .feature-description p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* Feature animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fadeInUp {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Add more styles as needed */
+
+        @media (max-width: 768px) {
+            .discover-container {
+                padding: 20px;
+            }
+
+            .feature-section {
+                flex-direction: column;
+            }
+
+            .feature-image {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .feature-description {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="discover-container">
+        <h1>Discover Our Features</h1>
+
+        <!-- Feature sections -->
+        <div class="feature-section">
+            <div class="feature-image fadeInUp">
+                <img src="gg.gif" alt="Feature 1">
+            </div>
+            <div class="feature-description">
+                <h2>NOS</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <div class="feature-description">
+                <h2>Download</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+            </div>
+            <div class="feature-image fadeInUp">
+                <img src="feature2.png" alt="Feature 2">
+            </div>
+        </div>
+
+        <div class="feature-section">
+            <div class="feature-image fadeInUp">
+                <img src="ggg.gif" alt="Feature 3" width="150" height="150"> <!-- Adjust the width and height as needed -->
+            </div>
+            <div class="feature-description">
+                <h2>Support</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+            </div>
+        </div>
+        <div class="feature-section">
+            <div class="feature-description">
+                <h2>Safety</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+            </div>
+            <div class="feature-image fadeInUp">
+                <img src="ssss.gif" alt="Feature 4">
+            </div>
+        </div>
+        <!-- Add more feature sections as needed -->
+    </div>
+</body>
+</html>

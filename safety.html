@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scrollbar */
+        }
+
+        /* Rainbow animation */
+        .rainbow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            animation: rainbow-bg 5s linear infinite;
+        }
+
+        @keyframes rainbow-bg {
+            0% {
+                background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff, #ff00ff);
+            }
+            14% {
+                background: linear-gradient(45deg, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff, #ff00ff, #ff0000);
+            }
+            28% {
+                background: linear-gradient(45deg, #ffff00, #00ff00, #0000ff, #8000ff, #ff00ff, #ff0000, #ff8000);
+            }
+            42% {
+                background: linear-gradient(45deg, #00ff00, #0000ff, #8000ff, #ff00ff, #ff0000, #ff8000, #ffff00);
+            }
+            57% {
+                background: linear-gradient(45deg, #0000ff, #8000ff, #ff00ff, #ff0000, #ff8000, #ffff00, #00ff00);
+            }
+            71% {
+                background: linear-gradient(45deg, #8000ff, #ff00ff, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff);
+            }
+            85% {
+                background: linear-gradient(45deg, #ff00ff, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff);
+            }
+        }
+
+        header {
+            background-color: #007BFF;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .safety-icon {
+            font-size: 48px;
+            color: #007BFF;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: #ffffff;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+        }
+
+        .highlight-text {
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        /* Unique styles for safety tips */
+        .safety-tips {
+            margin-top: 40px;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .safety-tips h2 {
+            font-size: 24px;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        .safety-tip {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .safety-tip-icon {
+            font-size: 24px;
+            color: #ffffff;
+            margin-right: 10px;
+        }
+
+        .safety-tip-text {
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        /* Unique styles for footer */
+        footer {
+            background-color: #1a1a1a;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .footer-text {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        /* Card styles */
+        .card {
+            width: 300px;
+            height: 400px;
+            perspective: 1000px;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-right: 20px;
+            background-color: #007BFF;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: rotateY(180deg);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Additional styles for new features */
+        .feature-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .feature-item {
+            width: calc(33.33% - 20px);
+            background-color: #ff8000;
+            color: #ffffff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background-color: #ff4000; /* Darker color on hover */
+        }
+
+        /* Additional styles and features as needed */
+    </style>
+</head>
+<body>
+    <!-- Rainbow background -->
+    <div class="rainbow"></div>
+
+    <header>
+        <h1>Safety First</h1>
+        <p>Your Safety Matters to Us</p>
+    </header>
+
+    <div class="container">
+        <h2>Why Safety is Our Priority</h2>
+        <p>We are committed to providing a safe and secure environment for our users. Your safety is our top priority, and we take the following measures to ensure it:</p>
+        <ul>
+            <li class="safety-tip">
+                <span class="safety-icon">&#x2713;</span>
+                <span class="safety-tip-text">Regular safety audits</span>
+            </li>
+            <li class="safety-tip">
+                <span class="safety-icon">&#x2713;</span>
+                <span class="safety-tip-text">Advanced security protocols</span>
+            </li>
+            <li class="safety-tip">
+                <span class="safety-icon">&#x2713;</span>
+                <span class="safety-tip-text">24/7 customer support</span>
+            </li>
+            <li class="safety-tip">
+                <span class="safety-icon">&#x2713;</span>
+                <span class="safety-tip-text">Privacy protection</span>
+            </li>
+        </ul>
+        <p>We are here to ensure that your experience with us is both enjoyable and safe. If you have any safety concerns or questions, please don't hesitate to <span class="highlight-text">contact us</span>.</p>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\help.html" class="cta-button">Contact Us</a>
+    </div>
+
+    <!-- Safety Tips Section -->
+    <div class="container safety-tips">
+        <h2>Safety Tips</h2>
+        <div class="card">
+            <h2>Safety Tip 1</h2>
+            <p>COMING SOON!</p>
+        </div>
+        <div class="card">
+            <h2>Safety Tip 2</h2>
+            <p>COMING SOON!</p>
+        </div>
+        <!-- Add more safety tips cards as needed -->
+    </div>
+
+    <!-- Additional Features Section -->
+    <div class="container">
+        <h2>Explore Our Safety Features</h2>
+        <div class="feature-container">
+            <div class="feature-item">
+                <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\quiz.html" style="background-color: orange; color: white; text-decoration: none;">
+                    <h3>Interactive Quiz</h3>
+                    <p>Test your safety knowledge with our fun and educational quizzes.</p>
+                </a>
+            </div>
+            <div class="feature-item">
+                <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\discover.html" style="background-color: orange; color: white; text-decoration: none;">
+                    <h3>Blog</h3>
+                    <p>Read our safety terms and relax your self beleive us !</p>
+                </a>
+            </div>
+           
+            <div class="feature-item">
+                <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\contactus.html" style="background-color: orange; color: white; text-decoration: none;">
+                    <h3>Emergency Contacts</h3>
+                    <p>Quick access to essential emergency contact numbers and resources.</p>
+                </a>
+            </div>
+            <!-- Add more feature items as needed -->
+        </div>
+    </div>
+
+    <footer>
+        <p class="footer-text">&copy; 2023 X-CARD. All rights reserved.</p>
+    </footer>
+</body>
+</html>
