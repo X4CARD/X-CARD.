@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>X-CARD</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Denmark&display=swap" rel="stylesheet" />
+  <style>
+    /* Add your custom styles here */
+    /* ... (your existing styles) ... */
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .company-container {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      color: rgb(2, 2, 2);
+      font-size: 24px;
+    }
+    .company-logo {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+    .company-name {
+      font-weight: bold;
+      font-family: 'Denmark', sans-serif;
+    }
+    .login-button {
+      position: absolute;
+      font-weight: bold;
+      top: 10px;
+      right: 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-button:focus {
+      outline: none;
+    }
+    .login-form {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .login-form.active {
+      display: block;
+    }
+    
+    
+    .features-container {
+      position: absolute;
+      top: 17px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .feature {
+      margin: 0 10px;
+      color: rgb(0, 255, 34);
+      font-size: 14px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .slash {
+      color: rgb(12, 12, 12);
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 10px;
+    }
+    .platform {
+      display: flex;
+      align-items: center;
+    }
+    .platform a {
+      color: rgb(0, 255, 34);
+      text-decoration: none;
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <video autoplay muted loop id="background-video" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <source src="V.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="features-container">
+      <div class="platform">
+        <a href="file:///C:/Users/divya/OneDrive/Desktop/Impo/Html/download.html">Download</a>
+      </div>
+      <div class="slash">/</div>
+      <div class="platform">
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\nos.html">NOS</a>
+      </div>
+      <div class="slash">/</div>
+      <div class="platform">
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\discover.html">Discover</a>
+      </div>
+      <div class="slash">/</div>
+      <div class="platform">
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\safety.html">Safety</a>
+      </div>
+      <div class="slash">/</div>
+      <div class="platform">
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\help.html">Support</a>
+      </div>
+      <div class="slash">/</div>
+      <div class="platform">
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\careers.html">Careers</a>
+      </div>
+      <div class="slash">/</div>
+      <div class="platform">
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\blog.html">Blog</a>
+      </div>
+    </div>
+    <div class="company-container">
+      <img src="L.png" alt="Company Logo" class="company-logo">
+      <div class="company-name">X-CARD</div>
+    </div>
+    <button class="login-button" id="showLoginForm">Login</button>
+    <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\blog.html" class="information-button">BLOG</a>
+    <!-- ... (rest of your content) ... -->
+  </div>
+  </div>
+
+  <div class="login-form" id="loginForm">
+    <div class="content">
+      
+      <form action="#">
+        <div class="field">
+          <span class="fa fa-user"></span>
+          <input type="text" required placeholder="Email or Phone">
+        </div>
+        <div class="field space">
+          <span class="fa fa-lock"></span>
+          <input type="password" class="pass-key" required placeholder="Password">
+          <span class="show">SHOW</span>
+        </div>
+        <div class="pass">
+          <a href="#">Forgot Password?</a>
+        </div>
+        <div class="field">
+          <input type="submit" value="LOGIN">
+        </div>
+      </form>
+      <!-- ... (rest of your login form content) ... -->
+      <div class="login">
+        Or login with
+     </div>
+     <div class="links">
+      <div class="facebook">
+        <i class="fab fa-facebook"></i><span>Facebook</span>
+      </div>
+      <div class="instagram">
+        <i class="fab fa-instagram"></i><span>Instagram</span>
+        </div>
+     </div>
+     <div class="signup">
+        Don't have an account?
+        <a href="#" id="showRegistrationForm">Signup Now</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="registration-form" id="registrationForm" style="display: none;">
+    <div class="content">
+      <form action="#">
+        <div class="field">
+          <span class="fa fa-user"></span>
+          <input type="text" required placeholder="Full Name">
+        </div>
+        <div class="field">
+          <span class="fa fa-envelope"></span>
+          <input type="email" required placeholder="Email">
+        </div>
+        <div class="field space">
+          <span class="fa fa-lock"></span>
+          <input type="password" class="pass-key" required placeholder="Password">
+          <span class="show" id="showPassword">SHOW</span>
+        </div>
+        <div class="field">
+          <input type="submit" value="SIGN UP">
+        </div>
+      </form>
+      <!-- ... (rest of your registration form content) ... -->
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="login.js"></script>
+  <script>
+    const pass_field = document.querySelector('.pass-key');
+    const showBtn = document.querySelector('.show');
+    showBtn.addEventListener('click', function(){
+      if(pass_field.type === "password"){
+        pass_field.type = "text";
+        showBtn.textContent = "HIDE";
+        showBtn.style.color = "#3498db";
+      }else{
+        pass_field.type = "password";
+        showBtn.textContent = "SHOW";
+        showBtn.style.color = "#222";
+      }
+    });
+
+    const loginButton = document.getElementById('showLoginForm');
+    const loginForm = document.getElementById('loginForm');
+    loginButton.addEventListener('click', function() {
+      loginForm.classList.toggle('active');
+    });
+
+    const showRegistrationFormLink = document.getElementById('showRegistrationForm');
+    const registrationForm = document.getElementById('registrationForm');
+
+    showRegistrationFormLink.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent the link from navigating to a new page
+      loginForm.style.display = 'none'; // Hide the login form
+      registrationForm.style.display = 'block'; // Show the registration form
+    });
+
+    document.addEventListener('click', function(event) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.style.left = event.clientX - 10 + 'px'; // Center the bubble on the click position
+      bubble.style.top = event.clientY - 10 + 'px';
+      document.body.appendChild(bubble);
+
+      // Remove the bubble element after the animation is complete
+      bubble.addEventListener('animationend', function() {
+        bubble.remove();
+      });
+    });
+  </script>
+</body>
+</html>
