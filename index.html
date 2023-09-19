@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WELCOME TO X-CARD</title>
+  <!-- Include Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    audio {
+      display: none;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #050505;
+      overflow: hidden;
+    }
+    .launch-button {
+      position: relative;
+      padding: 15px 30px;
+      background-color: #000305;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      overflow: hidden;
+      animation: glowing 2s infinite;
+      display: flex;
+      align-items: center; /* Center the text and icon vertically */
+      text-decoration: none; /* Remove default button styling */
+    }
+    /* Style the rocket icon */
+    .fa-rocket {
+      margin-right: 10px; /* Add some spacing between the icon and text */
+    }
+    @keyframes explode {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx, 0), var(--ty, 0)) scale(0.5);
+      }
+    }
+    @keyframes glowing {
+      0%, 100% {
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(52, 152, 219, 1.2);
+      }
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop id="background-video" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <source src="S.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <audio controls autoplay loop>
+    <source src="N.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <!-- Replace the button with a link to your main site -->
+  <a href="file:///C:/Users/divya/OneDrive/Desktop/Impo/Html/login.html" class="launch-button">
+    <i class="fas fa-rocket"></i> Launch Site
+  </a>
+
+  <script>
+    function createExplodePiece(x, y) {
+      const piece = document.createElement('div');
+      piece.className = 'explode-piece';
+      piece.style.left = `${x}px`;
+      piece.style.top = `${y}px`;
+      const tx = Math.random() * 200 - 100 + 'px';
+      const ty = Math.random() * 200 - 100 + 'px';
+      piece.style.setProperty('--tx', tx);
+      piece.style.setProperty('--ty', ty);
+      document.body.appendChild(piece);
+    }
+    const explodeButton = document.querySelector('.launch-button');
+
+    explodeButton.addEventListener('click', (event) => {
+      const { left, top } = explodeButton.getBoundingClientRect();
+      for (let i = 0; i < 20; i++) {
+        createExplodePiece(left, top);
+      }
+      explodeButton.style.opacity = '0';
+      setTimeout(() => {
+        window.location.href = 'file:///C:/Users/divya/OneDrive/Desktop/Impo/Html/login.html'; // Replace with your main website URL
+      }, 1500); // Adjust the delay time as needed
+    });
+  </script>
+</body>
+</html>
