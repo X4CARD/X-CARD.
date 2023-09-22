@@ -105,34 +105,33 @@
       <source src="V.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-   
     <div class="features-container">
       <div class="platform">
-        <a href="download.html">Download</a>
+        <a href="file:///C:/Users/divya/OneDrive/Desktop/Impo/Html/download.html">Download</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="nos.html">NOS</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\nos.html">NOS</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="discover.html">Discover</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\discover.html">Discover</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="safety.html">Safety</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\safety.html">Safety</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="help.html">Support</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\help.html">Support</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="careers.html">Careers</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\careers.html">Careers</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="blog.html">Blog</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\blog.html">Blog</a>
       </div>
     </div>
     <div class="company-container">
@@ -147,15 +146,14 @@
 
   <div class="login-form" id="loginForm">
     <div class="content">
-      
-      <form action="#">
+      <form onsubmit="return loginUser()">
         <div class="field">
           <span class="fa fa-user"></span>
-          <input type="text" required placeholder="Email or Phone">
+          <input type="text" id="loginUsername" required placeholder="Username or Email">
         </div>
         <div class="field space">
           <span class="fa fa-lock"></span>
-          <input type="password" class="pass-key" required placeholder="Password">
+          <input type="password" id="loginPassword" class="pass-key" required placeholder="Password">
           <span class="show">SHOW</span>
         </div>
         <div class="pass">
@@ -184,20 +182,44 @@
     </div>
   </div>
 
-  <div class="registration-form" id="registrationForm" style="display: none;">
+  <div class="login-form" id="loginForm">
     <div class="content">
-      <form action="#">
+      <form onsubmit="return loginUser()">
         <div class="field">
           <span class="fa fa-user"></span>
-          <input type="text" required placeholder="Full Name">
-        </div>
-        <div class="field">
-          <span class="fa fa-envelope"></span>
-          <input type="email" required placeholder="Email">
+          <input type="text" id="loginUsername" required placeholder="Username or Email">
         </div>
         <div class="field space">
           <span class="fa fa-lock"></span>
-          <input type="password" class="pass-key" required placeholder="Password">
+          <input type="password" id="loginPassword" class="pass-key" required placeholder="Password">
+          <span class="show">SHOW</span>
+        </div>
+        <div class="pass">
+          <a href="#">Forgot Password?</a>
+        </div>
+        <div class="field">
+          <input type="submit" value="LOGIN">
+        </div>
+      </form>
+      <!-- ... (rest of your login form content) ... -->
+    </div>
+  </div>
+
+  <!-- Registration Form -->
+  <div class="registration-form" id="registrationForm" style="display: none;">
+    <div class="content">
+      <form onsubmit="return registerUser()">
+        <div class="field">
+          <span class="fa fa-user"></span>
+          <input type="text" id="registerFullname" required placeholder="Full Name">
+        </div>
+        <div class="field">
+          <span class="fa fa-envelope"></span>
+          <input type="email" id="registerEmail" required placeholder="Email">
+        </div>
+        <div class="field space">
+          <span class="fa fa-lock"></span>
+          <input type="password" id="registerPassword" class="pass-key" required placeholder="Password">
           <span class="show" id="showPassword">SHOW</span>
         </div>
         <div class="field">
@@ -211,6 +233,68 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="login.js"></script>
   <script>
+     function loginUser() {
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      // Check if the user exists in localStorage
+      const userData = JSON.parse(localStorage.getItem(username));
+
+      if (userData && userData.password === password) {
+        alert('Login successful. Redirecting to landing page...');
+        window.location.href = 'landing.html'; // Redirect to the landing page
+        return false; // Prevent form submission
+      } else {
+        alert('Invalid username or password.');
+        return false; // Prevent form submission
+      }
+    }
+     function registerUser() {
+      const fullname = document.getElementById('registerFullname').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+
+      // Check if the user already exists
+      if (localStorage.getItem(email)) {
+        alert('User already exists. Please log in.');
+        return false;
+      }
+
+      // Store user data in localStorage
+      const userData = { fullname, password };
+      localStorage.setItem(email, JSON.stringify(userData));
+
+      alert('Registration successful. Please log in.');
+      toggleForms(); // Hide registration form and show login form
+      return false; // Prevent form submission
+    }
+
+    // Function to log in a user by checking stored details in localStorage
+    function loginUser() {
+      const username = document.getElementById('loginUsername').value;
+      const password = document.getElementById('loginPassword').value;
+
+      // Check if the user exists in localStorage
+      const userData = JSON.parse(localStorage.getItem(username));
+
+      if (userData && userData.password === password) {
+        alert('Login successful. Redirecting to landing page...');
+        window.location.href = 'landing.html'; // Redirect to the landing page
+        return false; // Prevent form submission
+      } else {
+        alert('Invalid username or password.');
+        return false; // Prevent form submission
+      }
+    }
+
+    // Function to toggle between registration and login forms
+    function toggleForms() {
+      const loginForm = document.getElementById('loginForm');
+      const registrationForm = document.getElementById('registrationForm');
+
+      loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+      registrationForm.style.display = registrationForm.style.display === 'none' ? 'block' : 'none';
+    }
     const pass_field = document.querySelector('.pass-key');
     const showBtn = document.querySelector('.show');
     showBtn.addEventListener('click', function(){
