@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Download Center</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Add your CSS file link here -->
+    <style>
+        /* Additional inline styles (can be moved to an external CSS file) */
+        body {
+            background-color: #8ed5d5; /* Light Aqua color */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .company-container {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            color: rgb(2, 2, 2);
+            font-size: 24px;
+        }
+
+        .company-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-family: 'Denmark', sans-serif;
+        }
+
+        .search-container {
+            position: relative;
+            top: -50px;
+            float: right;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
+
+        .search-box {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-button {
+            position: absolute;
+            top: 3px;
+            right: 5px;
+            cursor: pointer;
+        }
+
+        /* Updated software grid styles */
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px; /* Adjusted margin for better spacing */
+            padding: 20px; /* Added padding for better aesthetics */
+        }
+
+        /* Updated software box styles */
+        .software-box {
+            background-color: #fff;
+            padding: 10px; /* Reduced padding for smaller boxes */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        /* Centered text style */
+        .centered-text {
+            text-align: center;
+            font-size: 24px;
+            color: #fff; /* White text color */
+            font-family: 'MetallicFont', sans-serif; /* Add your metallic font family */
+            margin-top: 20px; /* Adjusted margin for better spacing */
+        }
+
+        .software-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .software-title {
+            font-size: 16px; /* Adjusted font size for smaller boxes */
+            margin: 10px 0;
+        }
+
+        .software-description {
+            font-size: 12px; /* Adjusted font size for smaller boxes */
+            color: #555;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 8px 16px; /* Adjusted padding for smaller boxes */
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 8px; /* Adjusted margin for smaller boxes */
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .download-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="centered-text"><u>SOFTWARE DOWNLOAD CENTRE</u></div>
+    <div class="search-container">
+      <!-- Search input -->
+      <input type="text" class="search-box" placeholder="Search...">
+      <!-- Search button (you can use an icon here) -->
+      <button class="search-button">
+        <!-- You can use an icon like a magnifying glass -->
+        &#128269;
+      </button>
+  </div>
+        <!-- Search input and button code remains the same -->
+    </div>
+    <div class="company-container">
+        <!-- Your company logo and name code remains the same -->
+    </div>
+    <div class="company-container">
+      <img src="L.png" alt="Company Logo" class="company-logo">
+      <div class="company-name">X-CARD</div>
+  </div>
+    <div class="software-grid">
+        <!-- Software Box 1 (Google Chrome) -->
+        <div class="software-box">
+            <img src="chrome.png" alt="Google Chrome" class="software-image" width="80" height="80">
+            <h3 class="software-title">Google Chrome</h3>
+            <p class="software-description">A fast and secure web browser.</p>
+            <a href="#" class="download-button">Download</a>
+        </div>
+        
+        <!-- Software Box 2 (VLC Media Player) -->
+        <div class="software-box">
+            <img src="vlc.png" alt="VLC Media Player" class="software-image" width="80" height="80">
+            <h3 class="software-title">VLC Media Player</h3>
+            <p class="software-description">A versatile multimedia player.</p>
+            <a href="#" class="download-button">Download</a>
+        </div>
+        
+        <!-- Software Box 3 (uTorrent) -->
+        <div class="software-box">
+            <img src="utorrent.png" alt="uTorrent" class="software-image" width="80" height="80">
+            <h3 class="software-title">uTorrent</h3>
+            <p class="software-description">A lightweight BitTorrent client.</p>
+            <a href="#" class="download-button">Download</a>
+        </div>
+
+        <!-- Software Box 4 (CCleaner) -->
+        <div class="software-box">
+            <img src="ccleaner.png" alt="CCleaner" class="software-image" width="80" height="80">
+            <h3 class="software-title">CCleaner</h3>
+            <p class="software-description">A system optimization tool.</p>
+            <a href="#" class="download-button">Download</a>
+        </div>
+
+        <!-- Software Box 5 (WinRAR) -->
+        <div class="software-box">
+            <img src="winrar.png" alt="WinRAR" class="software-image" width="80" height="80">
+            <h3 class="software-title">WinRAR</h3>
+            <p class="software-description">A powerful compression manager.</p>
+            <a href="#" class="download-button">Download</a>
+        </div>
+
+        <!-- Software Box 6 (Secure VPN) -->
+        <div class="software-box">
+            <img src="vpn.png" alt="Secure VPN" class="software-image" width="80" height="80">
+            <h3 class="software-title">Secure VPN</h3>
+            <p class="software-description">A VPN service for online privacy.</p>
+            <a href="#" class="download-button">Download</a>
+        </div>
+    </div>
+</body>
+</html>
