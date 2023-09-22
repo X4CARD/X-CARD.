@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .welcome-container {
+            background-color: #4307e9;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .welcome-text {
+            font-weight: bold;
+            font-size: 32px;
+        }
+        .company-container {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            color: rgb(2, 2, 2);
+            font-size: 24px;
+        }
+        .company-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .company-name {
+            font-weight: bold;
+            font-family: 'Denmark', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #4307e9; /* Background color for the landing page */
+            color: #fff; /* Text color for the metallic text */
+            font-weight: bold; /* Bold text */
+            font-size: 24px; /* Adjust font size as needed */
+            text-align: center; /* Center the metallic text */
+            display: flex;
+            flex-direction: column; /* Center content vertically */
+            justify-content: center; /* Center content horizontally */
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Create metallic effect with text-shadow */
+
+        /* Style for the circle options */
+        .options-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center; /* Center the options horizontally */
+            text-align: center; /* Center the text within each option */
+        }
+
+        .option {
+            width: 100px;
+            height: 100px;
+            background-color: #007bff; /* Blue circle color */
+            border-radius: 50%;
+            margin: 10px; /* Adjust the spacing between circles */
+            display: flex;
+            flex-direction: column;
+            /* Align text at the bottom */
+            align-items: center;
+            font-size: 14px;
+            color: #ffffff; /* Text color for circle options */
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+            text-shadow: 0 0 5px rgba(7, 7, 7, 0.9), 0 0 10px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.7);       
+            position: relative; /* Add relative positioning */
+        }
+
+        .option:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .option img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%; /* Maintain circular shape */
+        }
+
+        .option-text {
+            position: absolute; /* Absolute positioning */
+            bottom: -20px; /* Adjust the vertical position */
+        }
+        /* Style for the search box */
+.search-container {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#search {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+#search-button {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #fff;
+}
+
+#search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Style for the search icon */
+#search-button i {
+    font-size: 16px;
+}
+
+        
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Search...">
+        <button id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="welcome-container">
+        <div class="welcome-text">WELCOME CHOOSE ONE!</div>
+    </div>
+    <div class="company-container">
+        <img src="L.png" alt="Company Logo" class="company-logo">
+        <div class="company-name">X-CARD</div>
+    </div>
+    
+    <div class="options-container">
+        <a class="option" href="#">
+            <div class="option-text">Crypto</div>
+            <img src="your-gif-image1.gif" alt="Option 1">
+        </a>
+        <a class="option" href="#">
+            <div class="option-text">Chatting</div>
+            <img src="your-gif-image2.gif" alt="Option 2">
+        </a>
+        <a class="option" href="#">
+            <div class="option-text">Software</div>
+            <img src="your-gif-image3.gif" alt="Option 3">
+        </a>
+        <a class="option" href="#">
+            <div class="option-text">Game</div>
+            <img src="your-gif-image4.gif" alt="Option 4">
+        </a>
+        <a class="option" href="#">
+            <div class="option-text">Anime</div>
+            <img src="your-gif-image5.gif" alt="Option 5">
+        </a>
+    </div>
+    
+</body>
+</html>
