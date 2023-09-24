@@ -71,7 +71,7 @@
             height: 100px;
             background-color: #007bff; /* Blue circle color */
             border-radius: 50%;
-            margin: 10px; /* Adjust the spacing between circles */
+            margin: 15px; /* Adjust the spacing between circles */
             display: flex;
             flex-direction: column;
             /* Align text at the bottom */
@@ -99,45 +99,68 @@
             bottom: -20px; /* Adjust the vertical position */
         }
         /* Style for the search box */
-.search-container {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-}
+        .search-container {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+        }
 
-#search {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 5px;
-    font-size: 16px;
-}
+        #search {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 5px;
+            font-size: 16px;
+        }
 
-#search-button {
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    color: #fff;
-}
+        #search-button {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: #fff;
+        }
 
-#search-button:hover {
-    background-color: #0056b3;
-}
+        #search-button:hover {
+            background-color: #0056b3;
+        }
 
-/* Style for the search icon */
-#search-button i {
-    font-size: 16px;
-}
+        /* Style for the search icon */
+        #search-button i {
+            font-size: 16px;
+        }
 
-        
+        /* Style for the search results */
+        #search-results {
+            position: absolute;
+            top: 45px; /* Adjust the position as needed */
+            right: 20px;
+            background-color: #fff;
+            color: #000;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1;
+            max-height: 200px; /* Adjust the maximum height of the results dropdown */
+            overflow-y: auto;
+            display: none; /* Hide by default */
+        }
+
+        .search-result-option {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .search-result-option:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
-     <div class="search-container">
+    <div class="search-container">
         <input type="text" id="search-input" placeholder="Search..." onkeyup="searchOptions()">
         <button id="search-button"><i class="fas fa-search"></i></button>
         <div id="search-results"></div>
@@ -155,7 +178,7 @@
             <div class="option-text">Crypto</div>
             <img src="your-gif-image1.gif" alt="Option 1">
         </a>
-        <a class="option" href="#">
+        <a class="option" href="chat.html">
             <div class="option-text">Chatting</div>
             <img src="your-gif-image2.gif" alt="Option 2">
         </a>
@@ -171,9 +194,20 @@
             <div class="option-text">Anime</div>
             <img src="your-gif-image5.gif" alt="Option 5">
         </a>
-       
+        <a class="option" href="https://netflixmirror.com/home">
+            <div class="option-text">Netflix FREE</div>
+            <img src="your-gif-image6.gif" alt="Option 6">
+        </a>
     </div>
-     <script>
+    
+    <div>
+        <a class="option" href="#">
+            <div class="option-text">Option 8</div>
+            <img src="your-gif-image8.gif" alt="Option 8">
+        </a>
+    </div>
+    
+    <script>
         function searchOptions() {
             // Get the input value and convert it to lowercase for case-insensitive search
             var input = document.getElementById("search-input").value.toLowerCase();
