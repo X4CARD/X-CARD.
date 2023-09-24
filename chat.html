@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat UI</title>
+    <style>
+        /* Base styles for the chat UI */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+
+        /* Left sidebar for creating chat rooms */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            padding: 0.5px;
+            width: 15%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .create-room-button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* Chat room icons */
+        .chat-room-icon {
+            width: 50px; /* Adjust the icon size as needed */
+            height: 50px;
+            background-color: #007BFF; /* Example background color for icons */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Context menu styles */
+        .custom-context-menu {
+            display: none;
+            position: absolute;
+            background-color: #000;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px;
+            top: 60px; /* Adjust the position as needed */
+            left: 20px; /* Adjust the position as needed */
+        }
+
+        /* Main content area for the chat */
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Right sidebar for user profile */
+        .profile-sidebar {
+            background-color: #f2f2f2;
+            padding: 20px;
+            width: 15%;
+        }
+
+        .profile-info {
+            text-align: center;
+        }
+
+        /* Profile image (replace with user profile picture) */
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: block;
+            background-color: #ddd; /* Replace with user profile image */
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Left sidebar for creating chat rooms -->
+    <div class="sidebar">
+        <h2>Create Chat Room</h2>
+        <!-- Chat room icons (replace with your chat room icons) -->
+        <!-- Button to create a new chat room -->
+        <button class="create-room-button" onclick="createChatRoom()">Create Room</button>
+        
+        <!-- Existing chat rooms -->
+        <div class="chat-rooms-list">
+            <!-- Chat room icons will be added here -->
+        </div>
+    </div>
+
+    <!-- Main content area for the chat -->
+    <div class="content">
+        <!-- Chat messages and input field go here -->
+        <!-- Replace with your chat interface -->
+    </div>
+    
+    <div class="profile-sidebar">
+        <div class="profile-info">
+            <img class="profile-image" id="userProfileImage" src="" alt="User Profile">
+            <h2 id="userName"></h2>
+            <p id="userEmail"></p>
+            <p>Unique ID: <span id="uniqueUserId"></span></p>
+        </div>
+        <div class="chat-rooms">
+            <h2>Chat Rooms</h2>
+            <div class="chat-rooms-list">
+                <!-- Chat room icons will be added here -->
+            </div>
+        </div>
+    </div>
+    <!-- Context menu HTML -->
+    <div class="custom-context-menu" id="contextMenu">
+        <ul>
+            <!-- Add a delete option to the context menu -->
+            <li><a href="#" id="deleteGroup">Delete</a></li>
+        </ul>
+    </div>
+
+    <script>
+       // Add this script to your existing JavaScript code
+
+// Function to retrieve user details (replace with your method to get user details)
+
+// Function to load chat rooms including invitations
+function loadChatRooms() {
+    const chatRooms = JSON.parse(localStorage.getItem('chatRooms')) || [];
+    const chatRoomsContainer = document.querySelector('.chat-rooms-list'); // Changed the selector
+    const userDetails = getUserDetails();
+
+    chatRooms.forEach((chatRoom) => {
+        if (chatRoom.invitedUsers.includes(userDetails.username)) {
+            const chatRoomIcon = document.createElement('div');
+            chatRoomIcon.className = 'chat-room-icon';
+            chatRoomIcon.textContent = chatRoom.name.charAt(0);
+            chatRoomsContainer.appendChild(chatRoomIcon);
+
+            // Attach the context menu event listener to the chat room
+            chatRoomIcon.addEventListener('contextmenu', (event) => {
+                showContextMenu(event, chatRoom.name);
+            });
+        }
+    });
+}
+
+
+// Initialize the chat website
+function initializeChat() {
+    const isAuthenticated = checkAuthentication();
+
+    if (isAuthenticated) {
+        // Retrieve user details from session or token
+        const userDetails = getUserDetails();
+
+        // Update the user interface with user details
+        const userProfileImage = document.getElementById('userProfileImage');
+        const userName = document.getElementById('userName');
+        const userEmail = document.getElementById('userEmail');
+        const uniqueUserId = document.getElementById('uniqueUserId');
+
+        userProfileImage.src = userDetails.profileImage;
+        userName.textContent = userDetails.username;
+        userEmail.textContent = `Email: ${userDetails.email}`;
+        uniqueUserId.textContent = userDetails.uniqueUserId;
+
+        // Load chat rooms from localStorage
+        loadChatRooms();
+    } else {
+        // Redirect to the login page if not authenticated
+        window.location.href = 'login.html'; // Replace with the login page URL
+    }
+}
+
+// Call the initialization function when the page loads
+window.addEventListener('load', initializeChat);
+
+// Rest of your code for chat room management and context menu handling
+
+        let currentRoom = null;
+
+        // Function to delete a chat room
+        function deleteChatRoom() {
+            if (currentRoom) {
+                const chatRoomsContainer = document.querySelector('.chat-rooms-list'); // Changed the selector
+                const chatRoom = Array.from(chatRoomsContainer.children).find((room) => room.textContent.includes(currentRoom.charAt(0)));
+        
+                // Remove the chat room from the UI
+                if (chatRoom) {
+                    chatRoomsContainer.removeChild(chatRoom);
+                }
+        
+                // Remove the chat room from localStorage
+                const chatRooms = JSON.parse(localStorage.getItem('chatRooms')) || [];
+                const updatedChatRooms = chatRooms.filter((room) => room !== currentRoom);
+                localStorage.setItem('chatRooms', JSON.stringify(updatedChatRooms));
+        
+                // Hide the context menu
+                document.getElementById('contextMenu').style.display = 'none';
+        
+                // Clear the current room
+                currentRoom = null;
+            }
+        }
+
+        // Function to create a chat room
+        function createChatRoom() {
+            const roomName = prompt("Enter the name of the new chat room:");
+        
+            if (roomName) {
+                // You can add logic here to invite other users to the room, e.g., by their usernames or email addresses
+                const invitedUsers = prompt("Enter usernames or email addresses of users to invite (comma-separated):");
+                const invitedUsersList = invitedUsers.split(',').map(user => user.trim());
+        
+                // Create a chat room object
+                const chatRoom = {
+                    name: roomName,
+                    invitedUsers: invitedUsersList,
+                    messages: [] // Store chat messages in the room object
+                };
+        
+                // Store the chat room data in localStorage
+                const chatRooms = JSON.parse(localStorage.getItem('chatRooms')) || [];
+                chatRooms.push(chatRoom);
+                localStorage.setItem('chatRooms', JSON.stringify(chatRooms));
+        
+                // Add the chat room icon to the UI
+                const chatRoomIcon = document.createElement('div');
+                chatRoomIcon.className = 'chat-room-icon';
+                chatRoomIcon.textContent = roomName.charAt(0);
+                document.querySelector('.chat-rooms-list').appendChild(chatRoomIcon); // Changed the selector
+        
+                // Attach the context menu event listener to the new chat room
+                chatRoomIcon.addEventListener('contextmenu', (event) => {
+                    showContextMenu(event, roomName);
+                });
+            }
+        }
+
+        // Load chat rooms from localStorage when the page loads
+        window.addEventListener('load', () => {
+            const chatRooms = JSON.parse(localStorage.getItem('chatRooms')) || [];
+            const chatRoomsContainer = document.querySelector('.chat-rooms-list'); // Changed the selector
+
+            chatRooms.forEach((roomName) => {
+                const chatRoom = document.createElement('div');
+                chatRoom.className = 'chat-room-icon';
+                chatRoom.textContent = roomName.charAt(0);
+                chatRoomsContainer.appendChild(chatRoom);
+
+                // Attach the context menu event listener to the chat room
+                chatRoom.addEventListener('contextmenu', (event) => {
+                    showContextMenu(event, roomName);
+                });
+            });
+        });
+
+        // Function to show the context menu
+        function showContextMenu(event, roomName) {
+            event.preventDefault(); // Prevent the default browser context menu
+            const contextMenu = document.getElementById('contextMenu');
+            contextMenu.style.display = 'block';
+            contextMenu.style.top = `${event.clientY}px`;
+            contextMenu.style.left = `${event.clientX}px`;
+            currentRoom = roomName; // Store the current room
+        }
+
+        // Add a click event listener to the Delete option in the context menu
+        document.getElementById('deleteGroup').addEventListener('click', deleteChatRoom);
+    
+    </script>
+</body>
+</html>
