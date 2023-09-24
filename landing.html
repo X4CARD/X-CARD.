@@ -137,9 +137,10 @@
     </style>
 </head>
 <body>
-    <div class="search-container">
-        <input type="text" id="search" placeholder="Search...">
+     <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search..." onkeyup="searchOptions()">
         <button id="search-button"><i class="fas fa-search"></i></button>
+        <div id="search-results"></div>
     </div>
     <div class="welcome-container">
         <div class="welcome-text">WELCOME CHOOSE ONE!</div>
