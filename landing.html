@@ -170,11 +170,55 @@
             <div class="option-text">Anime</div>
             <img src="your-gif-image5.gif" alt="Option 5">
         </a>
-        <a class="option" href="https://netflixmirror.com/home">
-            <div class="option-text">Netflix FREE</div>
-            <img src="your-gif-image6.gif" alt="Option 6">
-        </a>
+       
     </div>
+     <script>
+        function searchOptions() {
+            // Get the input value and convert it to lowercase for case-insensitive search
+            var input = document.getElementById("search-input").value.toLowerCase();
+            
+            // Get all the option elements
+            var options = document.querySelectorAll(".option");
     
+            // Initialize an empty array to store matching options
+            var matchingOptions = [];
+    
+            // Loop through each option
+            options.forEach(function(option) {
+                // Get the text content of the option
+                var optionText = option.querySelector(".option-text").textContent.toLowerCase();
+                
+                // Check if the option text contains the search input
+                if (optionText.includes(input)) {
+                    // If it matches, add it to the matchingOptions array
+                    matchingOptions.push(option.cloneNode(true));
+                }
+            });
+    
+            // Get the search results div
+            var searchResultsDiv = document.getElementById("search-results");
+    
+            // Clear previous search results
+            searchResultsDiv.innerHTML = "";
+    
+            // Display matching options or hide the search results if none found
+            if (matchingOptions.length > 0) {
+                matchingOptions.forEach(function(matchingOption) {
+                    searchResultsDiv.appendChild(matchingOption);
+                });
+                searchResultsDiv.style.display = "block";
+            } else {
+                searchResultsDiv.style.display = "none";
+            }
+        }
+    
+        // Close search results when clicking outside
+        document.addEventListener("click", function(event) {
+            var searchResultsDiv = document.getElementById("search-results");
+            if (event.target !== searchResultsDiv && !searchResultsDiv.contains(event.target)) {
+                searchResultsDiv.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
