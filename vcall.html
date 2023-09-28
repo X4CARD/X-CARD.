@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Call App</title>
+</head>
+<body>
+    <h1>Video Call App</h1>
+    
+    <!-- User Inputs -->
+    <label for="roomName">Room Name:</label>
+    <input type="text" id="roomName" required>
+    
+    <label for="userName">Your Name:</label>
+    <input type="text" id="userName" required>
+    
+    <button id="joinRoomButton">Join Room</button>
+
+    <!-- Video Containers -->
+    <div id="localVideoContainer">
+        <video id="localVideo" autoplay muted></video>
+    </div>
+    <div id="remoteVideoContainer">
+        <video id="remoteVideo" autoplay></video>
+    </div>
+
+    <script>
+        const roomNameInput = document.getElementById('roomName');
+        const userNameInput = document.getElementById('userName');
+        const joinRoomButton = document.getElementById('joinRoomButton');
+        const localVideo = document.getElementById('localVideo');
+        const remoteVideo = document.getElementById('remoteVideo');
+        let localStream;
+        let peerConnection;
+        let ws;
+
+        // Event listener for the "Join Room" button
+        joinRoomButton.addEventListener('click', () => {
+            const roomName = roomNameInput.value;
+            const userName = userNameInput.value;
+            joinRoom(roomName, userName);
+        });
+
+        // Function to set up the user's local video stream
+        async function startLocalVideo() {
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                localVideo.srcObject = localStream;
+            } catch (error) {
+                console.error('Error accessing local camera and microphone:', error);
+            }
+        }
+
+        // Function to create or join a room
+        async function joinRoom(roomName, userName) {
+            startLocalVideo();
+
+            // Connect to the WebSocket signaling server
+            ws = new WebSocket('ws://localhost:3000');
+            ws.addEventListener('open', () => {
+                // Send a "join" message to the server
+                const joinMessage = {
+                    type: 'join',
+                    roomName,
+                    userName
+                };
+                ws.send(JSON.stringify(joinMessage));
+            });
+
+            // Handle incoming WebSocket messages
+            ws.addEventListener('message', event => {
+                const data = JSON.parse(event.data);
+                handleSignalingData(data);
+            });
+
+            // Create a new peer connection
+            peerConnection = new RTCPeerConnection();
+
+            // Add the local video stream to the peer connection
+            localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+
+            // Handle remote ICE candidates and set the remote video stream
+            peerConnection.onicecandidate = event => {
+                if (event.candidate) {
+                    // Send the ICE candidate to the other user via the signaling server
+                    const iceCandidateMessage = {
+                        type: 'ice-candidate',
+                        candidate: event.candidate
+                    };
+                    ws.send(JSON.stringify(iceCandidateMessage));
+                }
+            };
+
+            peerConnection.ontrack = event => {
+                remoteVideo.srcObject = event.streams[0];
+            };
+        }
+
+        // Function to handle incoming signaling data
+        function handleSignalingData(data) {
+            switch (data.type) {
+                case 'offer':
+                    // Handle incoming offer and set it as the remote description
+                    peerConnection.setRemoteDescription(data.offer)
+                        .then(() => {
+                            // Create an answer and set it as the local description
+                            return peerConnection.createAnswer();
+                        })
+                        .then(answer => {
+                            return peerConnection.setLocalDescription(answer);
+                        })
+                        .then(() => {
+                            // Send the answer to the other user via the signaling server
+                            const answerMessage = {
+                                type: 'answer',
+                                answer: peerConnection.localDescription
+                            };
+                            ws.send(JSON.stringify(answerMessage));
+                        })
+                        .catch(error => console.error('Error handling offer:', error));
+                    break;
+                case 'answer':
+                    // Handle incoming answer and set it as the remote description
+                    peerConnection.setRemoteDescription(data.answer)
+                        .catch(error => console.error('Error handling answer:', error));
+                    break;
+                case 'ice-candidate':
+                    // Handle incoming ICE candidate
+                    peerConnection.addIceCandidate(data.candidate)
+                        .catch(error => console.error('Error handling ICE candidate:', error));
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
