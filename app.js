@@ -23,4 +23,46 @@ async function joinRoom() {
 
     // Implement WebRTC signaling to connect to the other user in the same room
     // This involves exchanging offers, answers, and ICE candidates
+
+    // Create an offer
+    const offer = await peerConnection.createOffer();
+    await peerConnection.setLocalDescription(offer);
+
+    // Send the offer to the other user in the room
+    sendMessage({ offer, roomID });
+}
+
+// Function to handle messages (offers, answers, ICE candidates) from the signaling server
+function handleMessage(message) {
+    if (message.answer) {
+        // Handle received answer
+        peerConnection.setRemoteDescription(new RTCSessionDescription(message.answer))
+            .catch(handleError);
+    } else if (message.offer) {
+        // Handle received offer
+        peerConnection.setRemoteDescription(new RTCSessionDescription(message.offer))
+            .then(() => peerConnection.createAnswer())
+            .then(answer => peerConnection.setLocalDescription(answer))
+            .then(() => {
+                // Send the answer to the other user
+                sendMessage({ answer });
+            })
+            .catch(handleError);
+    } else if (message.iceCandidate) {
+        // Handle received ICE candidate
+        peerConnection.addIceCandidate(new RTCIceCandidate(message.iceCandidate))
+            .catch(handleError);
+    }
+}
+
+// Function to send messages to the other user (implement this based on your signaling method)
+function sendMessage(message) {
+    // Implement how to send messages (message) to the other user in the same room
+}
+
+// Implement signaling server logic to exchange messages between users based on your chosen method (WebSocket, HTTP requests, etc.)
+
+// Function to handle errors
+function handleError(error) {
+    console.error('Error: ', error);
 }
