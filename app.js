@@ -1,68 +1,133 @@
-const localVideo = document.getElementById('localVideo');
-const remoteVideo = document.getElementById('remoteVideo');
-const roomInput = document.getElementById('roomInput');
-const joinButton = document.getElementById('joinButton');
+/* -----------------------------------------------
+/* How to use? : Check the GitHub README
+/* ----------------------------------------------- */
 
-let localStream;
-let peerConnection;
+/* To load a config file (particles.json) you need to host this demo (MAMP/WAMP/local)... */
+/*
+particlesJS.load('particles-js', 'particles.json', function() {
+  console.log('particles.js loaded - callback');
+});
+*/
 
-joinButton.addEventListener('click', joinRoom);
+/* Otherwise just put the config content (json): */
 
-async function joinRoom() {
-    const roomID = roomInput.value;
-    
-    // Get user media (camera and microphone)
-    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    localVideo.srcObject = localStream;
-
-    // Create a peer connection
-    peerConnection = new RTCPeerConnection();
-
-    // Add the local stream to the peer connection
-    localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-
-    // Implement WebRTC signaling to connect to the other user in the same room
-    // This involves exchanging offers, answers, and ICE candidates
-
-    // Create an offer
-    const offer = await peerConnection.createOffer();
-    await peerConnection.setLocalDescription(offer);
-
-    // Send the offer to the other user in the room
-    sendMessage({ offer, roomID });
-}
-
-// Function to handle messages (offers, answers, ICE candidates) from the signaling server
-function handleMessage(message) {
-    if (message.answer) {
-        // Handle received answer
-        peerConnection.setRemoteDescription(new RTCSessionDescription(message.answer))
-            .catch(handleError);
-    } else if (message.offer) {
-        // Handle received offer
-        peerConnection.setRemoteDescription(new RTCSessionDescription(message.offer))
-            .then(() => peerConnection.createAnswer())
-            .then(answer => peerConnection.setLocalDescription(answer))
-            .then(() => {
-                // Send the answer to the other user
-                sendMessage({ answer });
-            })
-            .catch(handleError);
-    } else if (message.iceCandidate) {
-        // Handle received ICE candidate
-        peerConnection.addIceCandidate(new RTCIceCandidate(message.iceCandidate))
-            .catch(handleError);
+particlesJS('particles-js',
+  
+  {
+    "particles": {
+      "number": {
+        "value": 80,
+        "density": {
+          "enable": true,
+          "value_area": 800
+        }
+      },
+      "color": {
+        "value": "#000000"
+      },
+      "shape": {
+        "type": "circle",
+        "stroke": {
+          "width": 0,
+          "color": "#000000"
+        },
+        "polygon": {
+          "nb_sides": 5
+        },
+        "image": {
+          "src": "img/github.svg",
+          "width": 100,
+          "height": 100
+        }
+      },
+      "opacity": {
+        "value": 0.5,
+        "random": false,
+        "anim": {
+          "enable": false,
+          "speed": 1,
+          "opacity_min": 0.1,
+          "sync": false
+        }
+      },
+      "size": {
+        "value": 5,
+        "random": true,
+        "anim": {
+          "enable": false,
+          "speed": 40,
+          "size_min": 0.1,
+          "sync": false
+        }
+      },
+      "line_linked": {
+        "enable": true,
+        "distance": 150,
+        "color": "#000000",
+        "opacity": 0.4,
+        "width": 1
+      },
+      "move": {
+        "enable": true,
+        "speed": 6,
+        "direction": "none",
+        "random": false,
+        "straight": false,
+        "out_mode": "out",
+        "attract": {
+          "enable": false,
+          "rotateX": 600,
+          "rotateY": 1200
+        }
+      }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": {
+          "enable": true,
+          "mode": "repulse"
+        },
+        "onclick": {
+          "enable": true,
+          "mode": "push"
+        },
+        "resize": true
+      },
+      "modes": {
+        "grab": {
+          "distance": 400,
+          "line_linked": {
+            "opacity": 1
+          }
+        },
+        "bubble": {
+          "distance": 400,
+          "size": 40,
+          "duration": 2,
+          "opacity": 8,
+          "speed": 3
+        },
+        "repulse": {
+          "distance": 200
+        },
+        "push": {
+          "particles_nb": 4
+        },
+        "remove": {
+          "particles_nb": 2
+        }
+      }
+    },
+    "retina_detect": true,
+    "config_demo": {
+      "hide_card": false,
+      "background_color": "#000000",
+      "background_image": "",
+      "background_position": "50% 50%",
+      "background_repeat": "no-repeat",
+      "background_size": "cover"
     }
-}
+  }
 
-// Function to send messages to the other user (implement this based on your signaling method)
-function sendMessage(message) {
-    // Implement how to send messages (message) to the other user in the same room
-}
-
-// Implement signaling server logic to exchange messages between users based on your chosen method (WebSocket, HTTP requests, etc.)
-
-// Function to handle errors
-function handleError(error) {
-    console.error('Error: ', error);
-}
+);
