@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="login.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css?family=Denmark&display=swap" rel="stylesheet" />
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="L.png" type="image/x-icon">
-
   <style>
     /* Add your custom styles here */
     /* ... (your existing styles) ... */
@@ -100,9 +97,84 @@
       text-decoration: none;
       margin: 0 10px;
     }
+    /* Add your existing styles above this section */
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 14px; /* Adjust the base font size for smaller screens */
+  }
+
+  .company-container {
+    top: 5px;
+    left: 10px;
+    font-size: 18px;
+  }
+
+  .login-button {
+    top: 5px;
+    right: 10px;
+    font-size: 14px;
+  }
+
+
+  
+
+  .platform a {
+    margin: 0 5px;
+  }
+
+  .login-form {
+    width: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .field {
+    margin-bottom: 15px;
+  }
+
+  .pass {
+    margin-top: 10px;
+  }
+
+  .login, .signup {
+    font-size: 14px;
+  }
+
+  .links {
+    font-size: 14px;
+  }
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Prevent scrolling when the video is covering the entire screen */
+}
+
+#background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the entire screen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+/* Add your existing styles below this section */
+
   </style>
 </head>
 <body>
+  
+    
+    <!-- Display user details from URL parameters -->
+   
   <div class="login-container">
     <video autoplay muted loop id="background-video" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
       <source src="V.mp4" type="video/mp4">
@@ -110,31 +182,31 @@
     </video>
     <div class="features-container">
       <div class="platform">
-        <a href="download.html">Download</a>
+        <a href="file:///C:/Users/divya/OneDrive/Desktop/Impo/Html/download.html">Download</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="nos.html">NOS</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\nos.html">NOS</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="discover.html">Discover</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\discover.html">Discover</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="safety.html">Safety</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\safety.html">Safety</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="help.html">Support</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\help.html">Support</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="careers.html">Careers</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\careers.html">Careers</a>
       </div>
       <div class="slash">/</div>
       <div class="platform">
-        <a href="blog.html">Blog</a>
+        <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\blog.html">Blog</a>
       </div>
     </div>
     <div class="company-container">
@@ -142,7 +214,7 @@
       <div class="company-name">X-CARD</div>
     </div>
     <button class="login-button" id="showLoginForm">Login</button>
-    <a href="C:\Users\divya\OneDrive\Desktop\Impo\Html\blog.html" class="information-button">BLOG</a>
+    
     <!-- ... (rest of your content) ... -->
   </div>
   </div>
@@ -236,6 +308,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
   <script src="login.js"></script>
   <script>
+   
+    function loginUser() {
+      // Get user input from the form
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Redirect to the chat website with user details as URL parameters
+      window.location.href = `chat.html?username=${username}&password=${password}`;
+      
+      // Prevent the form from submitting (we're handling the redirection here)
+      return false;
+  }
      function loginUser() {
       const username = document.getElementById('loginUsername').value;
       const password = document.getElementById('loginPassword').value;
@@ -339,6 +423,9 @@
         bubble.remove();
       });
     });
+    
+    
   </script>
+  
 </body>
 </html>
